@@ -1,0 +1,68 @@
+<meta charset="utf-8" />
+<h1 id="功能">功能</h1>
+
+<p>爬取西刺代理网站的高匿代理ip并存储到mysql数据库为之后爬虫使用。 <br>
+地址：<a href="http://www.xicidaili.com/nn/">http://www.xicidaili.com/nn/</a></p>
+
+
+
+<h1 id="我的运行环境">我的运行环境</h1>
+
+<ul>
+<li>linux</li>
+<li>virtualenv</li>
+<li>python 2.7.5</li>
+<li>scrapy1.0.3  </li>
+</ul>
+
+
+
+<h1 id="依赖条件">依赖条件</h1>
+
+
+
+<h2 id="安装mysql的python-扩展">1. 安装mysql的python 扩展</h2>
+
+<pre class="prettyprint"><code class=" hljs ruby">(python2.<span class="hljs-number">7</span>-env01) [root<span class="hljs-variable">@vagrant</span>-centos65 crawler]<span class="hljs-comment">#pip install mysql-python</span></code></pre>
+
+<p>安装完成后还需执行：</p>
+
+<pre class="prettyprint"><code class=" hljs mel">(python2<span class="hljs-number">.7</span>-env01) [root<span class="hljs-variable">@vagrant</span>-centos65 crawler]# find / -name <span class="hljs-string">'libmysqlclient.so.18'</span> -<span class="hljs-keyword">print</span>
+/alidata/server/mysql/lib/libmysqlclient.so<span class="hljs-number">.18</span></code></pre>
+
+<p>设置软连接：</p>
+
+<pre class="prettyprint"><code class=" hljs ruby">(python2.<span class="hljs-number">7</span>-env01) [root<span class="hljs-variable">@vagrant</span>-centos65 crawler]<span class="hljs-comment"># ln -s /alidata/server/mysql/lib/libmysqlclient.so.18   /usr/lib/libmysqlclient.so.18</span></code></pre>
+
+<p>重启系统的动态链接库：</p>
+
+<pre class="prettyprint"><code class=" hljs vala"><span class="hljs-preprocessor"># ldconfig</span></code></pre>
+
+
+
+<h2 id="mysql导入dyproxysql文件">2. mysql导入dy_proxy.sql文件</h2>
+
+<h1 id="执行爬虫">执行爬虫</h1>
+
+<h2 id="开发阶段">开发阶段</h2>
+
+<p>debug模式执行</p>
+
+<pre class="prettyprint"><code class=" hljs ruby">(python2.<span class="hljs-number">7</span>-env01) [root<span class="hljs-variable">@vagrant</span>-centos65 crawler]<span class="hljs-comment">#scrapy  crawl  xici   -s LOG_LEVEL=DEBUG</span></code></pre>
+
+<h2 id="生产环境">生产环境</h2>
+
+<p>实际运行爬虫需考虑到爬虫可能遇到意外（网络故障等）而中断，暂停爬虫并与稍后恢复而不是重新开始会很有用，scrapy内置了对暂停与恢复爬取的支持，要开启该功能，只需要定义保存爬虫当前状态的目录：</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs ruby">(python2.<span class="hljs-number">7</span>-env01) [root<span class="hljs-variable">@vagrant</span>-centos65 crawler]<span class="hljs-comment"># scrapy  crawl  xici  -s JOBDIR=status/xici</span></code></pre>
+
+
+
+<h1 id="排错">排错</h1>
+
+<ol>
+<li>使用scrapy   shell 排错</li>
+<li>查看scrapy  log日志</li>
+</ol>
